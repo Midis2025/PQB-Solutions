@@ -74,9 +74,13 @@ filenames, and is rendered through `next/image` with explicit `sizes`. The hero
 is `priority`; everything else is lazy-loaded. Total payload for all 10 images
 is roughly **430 KB**.
 
-`pqb-logo.webp` is the **client-supplied logo**. The teal mark has enough contrast on
+`pqb-logo-teal.webp` is the **client-supplied logo**. The teal mark has enough contrast on
 every surface the site uses — white, soft grey and deep navy — so one asset serves both
 the header and the footer, and `BrandLogo` takes no tone variant.
+
+The colour is in the filename deliberately. `/_next/image` responses are cached hard by
+the browser, so replacing the artwork behind a stable filename leaves people looking at
+the old logo until they clear their cache — **give a new mark a new filename.**
 
 The dotted world map behind the contact section is `world-map-dots.svg` — generated
 from a public-domain blank world map and rendered as a CSS background so it adds no
