@@ -53,7 +53,7 @@ export function Testimonials() {
         >
           <Reveal direction="right" distance={24} className="h-full">
             <div
-              className="relative flex h-full min-h-[18rem] flex-col justify-between overflow-hidden rounded-3xl border border-ink-900/8 bg-mint-50 p-7 shadow-soft sm:p-9"
+              className="relative flex h-full min-h-[18rem] flex-col justify-between overflow-hidden rounded-[1.25rem] border border-ink-900/8 bg-mint-50 p-7 shadow-card sm:p-9"
               aria-live="polite"
               aria-atomic="true"
             >
@@ -127,23 +127,24 @@ export function Testimonials() {
           </Reveal>
 
           <Reveal direction="left" distance={24} delay={0.1} className="h-full">
-            <div className="relative h-full min-h-[16rem] overflow-hidden rounded-3xl bg-deep-800">
+            <div className="relative h-full min-h-[18rem] overflow-hidden rounded-[1.25rem] bg-mint-100 shadow-card">
               <Image
-                src="/images/testimonial-client-portrait.webp"
-                alt="Smiling business owner who partners with PQB Solutions"
+                src="/images/testimonial-client.webp"
+                alt="Business client in a navy suit at a laptop in a bright modern office"
                 fill
                 loading="lazy"
-                sizes="(max-width: 1024px) 92vw, 32vw"
-                className="object-cover"
+                sizes="(max-width: 1024px) 92vw, 34vw"
+                className="object-cover object-[62%_28%]"
               />
+              {/* Just enough tint at the top for the quote mark to read */}
               <div
                 aria-hidden="true"
-                className="absolute inset-0 bg-linear-to-tr from-deep-900/50 to-transparent"
+                className="absolute inset-x-0 top-0 h-28 bg-linear-to-b from-deep-900/25 to-transparent"
               />
               <Quote
-                size={92}
+                size={64}
                 aria-hidden="true"
-                className="absolute -right-3 top-5 fill-brand-300/35 text-brand-300/35"
+                className="absolute right-4 top-4 fill-brand-200/70 text-brand-200/70"
               />
             </div>
           </Reveal>

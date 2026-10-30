@@ -138,5 +138,5 @@ CRM) at the marked hook in `src/app/api/contact/route.ts`.
 - [ ] Replace the placeholder phone number and business address in `src/lib/site.ts`
 - [ ] Connect an email/CRM provider in `src/app/api/contact/route.ts`
 - [ ] Replace the placeholder testimonials ("Client Name") with approved client quotes and photos
-- [ ] Confirm image licensing for the photography in `public/images` (hero, about and the three service photographs were supplied by the client; the industries and testimonial photographs are Unsplash)
+- [ ] Confirm image licensing for the photography in `public/images` (the logo, hero, about, testimonial and the three service photographs were supplied by the client; the industries photograph is Unsplash)
 - [ ] Set the canonical domain in `site.url` if it differs from `www.pqbsolutions.com`
