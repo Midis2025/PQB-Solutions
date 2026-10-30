@@ -1,26 +1,129 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
+  --font-script: var(--font-script), cursive;
+
+  /* Approved brand palette: Deep Navy #142C3D, Teal #24A69A, Soft Grey #F4F6F8 */
+  --color-deep-900: #0c1e2b;
+  --color-deep-800: #142c3d;
+  --color-deep-700: #1d3c51;
+  --color-deep-600: #274f68;
+
+  --color-brand-50: #f0faf8;
+  --color-brand-100: #d8f1ee;
+  --color-brand-200: #ace0da;
+  --color-brand-300: #78ccc3;
+  --color-brand-400: #46b5aa;
+  --color-brand-500: #24a69a;
+  --color-brand-600: #1d8c82;
+  --color-brand-700: #177069;
+  --color-brand-800: #125952;
+
+  --color-ink-900: #142c3d;
+  --color-ink-700: #3d5366;
+  --color-ink-500: #6b7f8e;
+  --color-ink-300: #a3b2bd;
+
+  --color-mint-50: #f4f6f8;
+  --color-mint-100: #e9eef2;
+
+  --shadow-soft: 0 2px 4px rgba(20, 44, 61, 0.04), 0 12px 32px -12px rgba(20, 44, 61, 0.16);
+  --shadow-float: 0 8px 20px -6px rgba(20, 44, 61, 0.14), 0 24px 60px -24px rgba(20, 44, 61, 0.32);
+  --shadow-card: 0 1px 2px rgba(20, 44, 61, 0.05), 0 18px 40px -20px rgba(20, 44, 61, 0.22);
+
+  --radius-4xl: 2rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+    /* `clip` (not `hidden`) contains entrance transforms without creating a
+       scroll container, so the sticky header and smooth scrolling still work. */
+    overflow-x: clip;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    background-color: #ffffff;
+    color: var(--color-ink-900);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--color-ink-900);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background-color: var(--color-brand-200);
+    color: var(--color-deep-900);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .shell {
+    width: 100%;
+    max-width: 80rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .shell { padding-inline: 2rem; }
+  }
+
+  @media (min-width: 1536px) {
+    .shell { max-width: 86rem; }
+  }
+
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  /*
+   * Lets an element inside `.shell` run out to the right viewport edge while the
+   * rest of the row stays within the container. Mirrors `.shell`'s own max-width
+   * and inline padding, so the two always line up.
+   */
+  .bleed-right {
+    margin-right: 0;
+  }
+
+  @media (min-width: 1024px) {
+    .bleed-right {
+      margin-right: calc((100vw - min(100vw, 80rem)) / -2 - 2rem);
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .bleed-right {
+      margin-right: calc((100vw - min(100vw, 86rem)) / -2 - 2rem);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
