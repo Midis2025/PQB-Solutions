@@ -162,7 +162,7 @@ export const testimonials: Testimonial[] = [
   {
     id: "testimonial-1",
     quote:
-      "PQB Solutions has been an invaluable partner for our business. Their attention to detail and commitment to excellence have made a significant difference in our operations.",
+      "PQB Solutions has been an invaluable partner for our business. Their attention to detail and commitment to excellence have made a significant difference in our operations. The team is professional, responsive, and truly understands our unique needs.",
     name: "Client Name",
     role: "Business Owner",
     avatar: "/images/avatar-client-one.webp",
