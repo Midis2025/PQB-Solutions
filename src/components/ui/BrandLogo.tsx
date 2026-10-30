@@ -1,25 +1,33 @@
+import Image from "next/image";
+
 type BrandLogoProps = {
+  /**
+   * "dark" renders the full-colour mark for light backgrounds; "light" renders
+   * the recoloured mark (navy lifted to white, teal brightened) for dark ones.
+   */
   tone?: "dark" | "light";
   className?: string;
+  priority?: boolean;
 };
 
-export function BrandLogo({ tone = "dark", className = "" }: BrandLogoProps) {
+/** Intrinsic ratio of the supplied artwork: 720 x 287. */
+const LOGO_WIDTH = 240;
+const LOGO_HEIGHT = 96;
+
+export function BrandLogo({
+  tone = "dark",
+  className = "",
+  priority = false,
+}: BrandLogoProps) {
   return (
-    <span className={`inline-flex flex-col leading-none ${className}`}>
-      <span
-        className={`text-[1.9rem] font-extrabold tracking-[-0.03em] ${
-          tone === "dark" ? "text-deep-800" : "text-white"
-        }`}
-      >
-        PQB
-      </span>
-      <span
-        className={`mt-1 text-[0.58rem] font-semibold tracking-[0.34em] ${
-          tone === "dark" ? "text-ink-500" : "text-brand-100/70"
-        }`}
-      >
-        SOLUTIONS
-      </span>
-    </span>
+    <Image
+      src={tone === "dark" ? "/images/pqb-logo.webp" : "/images/pqb-logo-light.webp"}
+      alt="PQB Solutions"
+      width={LOGO_WIDTH}
+      height={LOGO_HEIGHT}
+      priority={priority}
+      sizes="(max-width: 640px) 112px, 128px"
+      className={`h-auto w-auto object-contain ${className}`}
+    />
   );
 }

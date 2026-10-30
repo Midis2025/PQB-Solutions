@@ -134,7 +134,7 @@ export function SiteHeader() {
             aria-label="PQB Solutions, back to top"
             className="shrink-0"
           >
-            <BrandLogo />
+            <BrandLogo priority className="h-10 sm:h-11" />
           </a>
 
           <nav aria-label="Primary" className="hidden lg:block">

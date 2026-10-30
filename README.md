@@ -74,6 +74,12 @@ filenames, and is rendered through `next/image` with explicit `sizes`. The hero
 is `priority`; everything else is lazy-loaded. Total payload for all 10 images
 is roughly **430 KB**.
 
+`pqb-logo.webp` is the **client-supplied logo**, used in the header. The footer sits
+on navy, so `pqb-logo-light.webp` is a recoloured variant generated from the same
+artwork — the navy lettering is lifted to white and the teal accent brightened, using a
+brightness-normalised hue split so the gradient in the "P" stays smooth. Replacing the
+logo means regenerating both files.
+
 The dotted world map behind the contact section is `world-map-dots.svg` — generated
 from a public-domain blank world map and rendered as a CSS background so it adds no
 DOM nodes. Regenerate it only if the dot density needs to change.
