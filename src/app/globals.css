@@ -26,6 +26,10 @@
   --color-ink-500: #6b7f8e;
   --color-ink-300: #a3b2bd;
 
+  /* Pale teal chip + deep teal glyph used by the industries strip */
+  --color-brand-tint: #e9f7f5;
+  --color-brand-ink: #087f78;
+
   --color-mint-50: #f4f6f8;
   --color-mint-100: #e9eef2;
 
