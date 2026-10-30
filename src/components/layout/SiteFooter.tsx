@@ -30,12 +30,12 @@ export async function SiteFooter() {
             >
               Quick Links
             </h2>
-            <ul className="mt-5 space-y-3">
+            <ul className="mt-4 space-y-0.5">
               {navItems.map((item) => (
                 <li key={item.href}>
                   <a
                     href={item.href}
-                    className="text-[0.85rem] transition-colors hover:text-brand-300"
+                    className="inline-block py-2 text-[0.85rem] transition-colors hover:text-brand-300"
                   >
                     {item.label}
                   </a>
@@ -51,12 +51,12 @@ export async function SiteFooter() {
             >
               Services
             </h2>
-            <ul className="mt-5 space-y-3">
+            <ul className="mt-4 space-y-0.5">
               {services.map((service) => (
                 <li key={service.id}>
                   <a
                     href={`#${service.id}`}
-                    className="text-[0.85rem] transition-colors hover:text-brand-300"
+                    className="inline-block py-2 text-[0.85rem] transition-colors hover:text-brand-300"
                   >
                     {service.shortTitle}
                   </a>
@@ -74,7 +74,7 @@ export async function SiteFooter() {
                 <Mail size={15} aria-hidden="true" className="mt-0.5 shrink-0 text-brand-400" />
                 <a
                   href={`mailto:${site.email}`}
-                  className="break-all transition-colors hover:text-brand-300"
+                  className="-my-2 inline-block break-all py-2 transition-colors hover:text-brand-300"
                 >
                   {site.email}
                 </a>
@@ -83,7 +83,7 @@ export async function SiteFooter() {
                 <Phone size={15} aria-hidden="true" className="mt-0.5 shrink-0 text-brand-400" />
                 <a
                   href={site.phoneHref}
-                  className="transition-colors hover:text-brand-300"
+                  className="-my-2 inline-block py-2 transition-colors hover:text-brand-300"
                 >
                   {site.phone}
                 </a>

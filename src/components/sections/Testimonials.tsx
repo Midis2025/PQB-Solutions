@@ -96,7 +96,7 @@ export function Testimonials() {
               </AnimatePresence>
 
               <div className="mt-7 flex items-center justify-between gap-4">
-                <div className="flex items-center gap-2" role="tablist" aria-label="Choose a testimonial">
+                <div className="flex items-center gap-0.5" role="tablist" aria-label="Choose a testimonial">
                   {testimonials.map((testimonial, dotIndex) => (
                     <button
                       key={testimonial.id}
@@ -105,12 +105,18 @@ export function Testimonials() {
                       aria-selected={dotIndex === index}
                       aria-label={`Show testimonial from ${testimonial.name}`}
                       onClick={() => goTo(dotIndex)}
-                      className={`h-2 rounded-full transition-all duration-300 ${
-                        dotIndex === index
-                          ? "w-6 bg-brand-600"
-                          : "w-2 bg-ink-300/60 hover:bg-brand-300"
-                      }`}
-                    />
+                      className="group grid h-11 place-items-center px-2.5"
+                    >
+                      {/* small dot, generous tap target around it */}
+                      <span
+                        aria-hidden="true"
+                        className={`h-2 rounded-full transition-all duration-300 ${
+                          dotIndex === index
+                            ? "w-6 bg-brand-600"
+                            : "w-2 bg-ink-300/60 group-hover:bg-brand-300"
+                        }`}
+                      />
+                    </button>
                   ))}
                 </div>
 

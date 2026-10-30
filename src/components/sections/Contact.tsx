@@ -78,7 +78,7 @@ export function Contact() {
                       {detail.href ? (
                         <a
                           href={detail.href}
-                          className="break-words text-[0.92rem] text-white transition-colors hover:text-brand-300"
+                          className="-my-2 inline-block break-words py-2 text-[0.92rem] text-white transition-colors hover:text-brand-300"
                         >
                           {detail.value}
                         </a>

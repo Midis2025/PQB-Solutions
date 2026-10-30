@@ -41,7 +41,7 @@ export function Hero() {
           <Reveal delay={0.08}>
             <h1
               id="hero-heading"
-              className="mt-8 text-balance text-[2.15rem] leading-[1.12] tracking-[-0.022em] sm:text-[2.6rem] lg:text-[2.4rem] xl:text-[3rem]"
+              className="mt-8 text-balance text-[clamp(1.65rem,6.4vw,2.45rem)] leading-[1.12] tracking-[-0.022em] lg:text-[clamp(2.4rem,3.75vw,3rem)]"
             >
               Accounting. Medical Billing.
               <br className="hidden sm:block" /> IT Solutions.

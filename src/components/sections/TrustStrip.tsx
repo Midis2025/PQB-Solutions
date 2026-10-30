@@ -12,7 +12,7 @@ export function TrustStrip() {
       <Reveal className="shell" distance={18}>
         <h2
           id="trust-strip-heading"
-          className="text-center font-sans text-[0.72rem] font-medium uppercase tracking-[0.26em] text-ink-900"
+          className="text-center font-sans text-[0.75rem] font-medium uppercase tracking-[0.26em] text-ink-900"
         >
           Trusted by Businesses Across Industries
         </h2>
