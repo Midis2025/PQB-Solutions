@@ -16,7 +16,7 @@ export async function SiteFooter() {
       <div className="shell">
         <div className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr] lg:gap-12 lg:py-16">
           <div>
-            <BrandLogo tone="light" className="h-11" />
+            <BrandLogo className="h-12" />
             <p className="mt-5 max-w-xs text-[0.85rem] leading-relaxed">
               Accounting, medical billing, and IT solutions delivered under one
               roof — so you can focus on growing your business.
