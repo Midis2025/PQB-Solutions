@@ -2,7 +2,23 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, Calculator, HeartPulse, Laptop } from "lucide-react";
 import { useEffect } from "react";
+
+const serviceOptions = [
+  {
+    icon: Calculator,
+    label: "Accounting & Bookkeeping",
+  },
+  {
+    icon: HeartPulse,
+    label: "Medical Billing Solutions",
+  },
+  {
+    icon: Laptop,
+    label: "IT Solutions",
+  },
+];
 
 export function ContactHero() {
   const reduceMotion = useReducedMotion();
@@ -18,16 +34,16 @@ export function ContactHero() {
   return (
     <section
       aria-labelledby="contact-hero-heading"
-      className="relative overflow-hidden bg-[#0C1E2B] pt-20 lg:pt-0 lg:min-h-[540px] xl:min-h-[600px] lg:flex lg:items-center"
+      className="relative overflow-hidden bg-[#0C1E2B] pt-20 lg:pt-0 lg:min-h-[440px] lg:h-[465px] xl:h-[480px] lg:flex lg:items-center"
     >
-      {/* Right Column: Corporate Team Meeting Photograph */}
-      <div className="relative w-full aspect-[16/11] sm:aspect-[3/2] lg:aspect-auto lg:absolute lg:inset-y-0 lg:right-0 lg:h-full lg:w-[54%] overflow-hidden">
+      {/* Right Column: Corporate Team Meeting Photograph (~50% width on desktop; renders first on mobile) */}
+      <div className="relative w-full aspect-[16/9] sm:aspect-[2/1] lg:aspect-auto lg:absolute lg:inset-y-0 lg:right-0 lg:h-full lg:w-[50%] overflow-hidden">
         <Image
           src="/images/contact-hero-team.webp"
           alt="PQB Solutions professional team collaborating around a conference table with laptops and reports"
           fill
           priority
-          sizes="(max-width: 1024px) 100vw, 54vw"
+          sizes="(max-width: 1024px) 100vw, 50vw"
           className="object-cover object-[center_12%]"
         />
 
@@ -62,13 +78,13 @@ export function ContactHero() {
         </svg>
       </div>
 
-      {/* Left Content Area within Container */}
+      {/* Left Content Area within Container (~50% width, vertically centered) */}
       <div className="shell relative z-20 w-full">
-        <div className="w-full lg:w-[48%] py-12 sm:py-16 lg:py-24 xl:py-28">
+        <div className="w-full lg:w-[50%] py-10 sm:py-12 lg:py-6">
           <motion.div
-            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 22 }}
+            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduceMotion ? 0.2 : 0.6, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: reduceMotion ? 0.2 : 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
             {/* Eyebrow */}
             <div className="flex items-center gap-3">
@@ -81,16 +97,52 @@ export function ContactHero() {
             {/* H1 Main Heading */}
             <h1
               id="contact-hero-heading"
-              className="mt-4 font-serif text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-[2.85rem] lg:leading-[1.18]"
+              className="mt-3.5 font-serif text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-[2.35rem] xl:text-[2.55rem] lg:leading-[1.18]"
             >
               Let&apos;s Start a Conversation
             </h1>
 
             {/* Description */}
-            <p className="mt-4.5 max-w-xl text-[0.98rem] leading-relaxed text-white/85 sm:text-base">
-              Have a question, need more information or want to discuss your
-              requirements? Our team is here to help.
+            <p className="mt-2.5 max-w-lg text-[0.92rem] leading-relaxed text-white/85 sm:text-[0.975rem]">
+              Have a question or looking for the right business support? Tell us what your
+              business needs. Our team is here to help you explore the right solutions.
             </p>
+
+            {/* Service Enquiry Overview */}
+            <div className="mt-5">
+              <span className="block text-[0.6875rem] font-bold tracking-[0.2em] text-brand-300 uppercase">
+                HOW CAN WE HELP?
+              </span>
+
+              <div className="mt-2.5 flex flex-wrap items-center gap-2 sm:gap-2.5">
+                {serviceOptions.map((service) => {
+                  const Icon = service.icon;
+                  return (
+                    <div
+                      key={service.label}
+                      className="inline-flex items-center gap-2 rounded-full border border-brand-400/30 bg-brand-500/10 px-3 py-1.5 text-xs text-white"
+                    >
+                      <Icon size={13} className="shrink-0 text-brand-300" aria-hidden="true" />
+                      <span className="font-medium">{service.label}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* CTA Button: Smooth scroll to #contact-form */}
+            <div className="mt-6 sm:mt-7">
+              <a
+                href="#contact-form"
+                className="group inline-flex items-center gap-2 rounded-full bg-brand-500 px-6 py-2.5 text-sm font-semibold text-white shadow-md shadow-brand-500/20 transition-all duration-300 hover:bg-brand-600 hover:gap-2.5 hover:-translate-y-0.5 focus-visible:outline-white"
+              >
+                <span>Send an Enquiry</span>
+                <ArrowRight
+                  size={15}
+                  className="transition-transform duration-300 group-hover:translate-x-0.5"
+                />
+              </a>
+            </div>
           </motion.div>
         </div>
       </div>

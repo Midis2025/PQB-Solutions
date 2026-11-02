@@ -4,9 +4,9 @@ import { ContactContent } from "@/components/contact/ContactContent";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Contact PQB Solutions | Get in Touch",
+  title: "Contact PQB Solutions | Let's Start a Conversation",
   description:
-    "Contact PQB Solutions to discuss accounting, medical billing and IT services. Send us an enquiry and our team will help you explore the right solutions.",
+    "Have a question or looking for the right business support? Tell us what your business needs. Our team is here to help you explore the right solutions.",
   alternates: {
     canonical: "/contact",
   },
@@ -14,9 +14,9 @@ export const metadata: Metadata = {
     type: "website",
     url: `${site.url}/contact`,
     siteName: site.name,
-    title: "Contact PQB Solutions | Get in Touch",
+    title: "Contact PQB Solutions | Let's Start a Conversation",
     description:
-      "Contact PQB Solutions to discuss accounting, medical billing and IT services. Send us an enquiry and our team will help you explore the right solutions.",
+      "Have a question or looking for the right business support? Tell us what your business needs. Our team is here to help you explore the right solutions.",
     images: [
       {
         url: "/images/contact-hero-team.webp",
@@ -28,9 +28,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contact PQB Solutions | Get in Touch",
+    title: "Contact PQB Solutions | Let's Start a Conversation",
     description:
-      "Contact PQB Solutions to discuss accounting, medical billing and IT services. Send us an enquiry and our team will help you explore the right solutions.",
+      "Have a question or looking for the right business support? Tell us what your business needs. Our team is here to help you explore the right solutions.",
     images: ["/images/contact-hero-team.webp"],
   },
 };

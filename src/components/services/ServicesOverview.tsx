@@ -70,7 +70,7 @@ const servicesData = [
 
 export function ServicesOverview() {
   return (
-    <div className="flex flex-col">
+    <div id="services-overview" className="flex flex-col scroll-mt-20">
       {servicesData.map((service) => {
         const Icon = service.icon;
 

@@ -29,8 +29,9 @@ const contactRows = [
 export function ContactContent() {
   return (
     <section
+      id="contact-form"
       aria-labelledby="contact-form-heading"
-      className="bg-white py-16 lg:py-24"
+      className="scroll-mt-20 bg-white py-16 lg:py-24"
     >
       <div className="shell">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.4fr_1px_1fr] lg:gap-14">

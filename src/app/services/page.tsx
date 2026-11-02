@@ -6,7 +6,7 @@ import { ServicesCTA } from "@/components/services/ServicesCTA";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Services | Accounting, Medical Billing & IT Solutions – PQB",
+  title: "Services | Business Solutions That Keep You Moving Forward – PQB",
   description:
     "Explore PQB Solutions' accounting, taxation, bookkeeping, medical billing and IT support services designed to help businesses operate more efficiently.",
   alternates: {
@@ -16,21 +16,21 @@ export const metadata: Metadata = {
     type: "website",
     url: `${site.url}/services`,
     siteName: site.name,
-    title: "Services | Accounting, Medical Billing & IT Solutions – PQB",
+    title: "Services | Business Solutions That Keep You Moving Forward – PQB",
     description:
       "Explore PQB Solutions' accounting, taxation, bookkeeping, medical billing and IT support services designed to help businesses operate more efficiently.",
     images: [
       {
         url: "/images/services-hero-team.webp",
         width: 1024,
-        height: 682,
+        height: 576,
         alt: "PQB Solutions Business Support Services",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Services | Accounting, Medical Billing & IT Solutions – PQB",
+    title: "Services | Business Solutions That Keep You Moving Forward – PQB",
     description:
       "Explore PQB Solutions' accounting, taxation, bookkeeping, medical billing and IT support services designed to help businesses operate more efficiently.",
     images: ["/images/services-hero-team.webp"],
