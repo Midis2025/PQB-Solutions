@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { ServicesHero } from "@/components/services/ServicesHero";
 import { ServicesOverview } from "@/components/services/ServicesOverview";
-import { ServiceDetailedBlocks } from "@/components/services/ServiceDetailedBlocks";
 import { WhyChooseServices } from "@/components/services/WhyChooseServices";
 import { ServicesCTA } from "@/components/services/ServicesCTA";
 import { site } from "@/lib/site";
@@ -58,7 +57,7 @@ const structuredData = {
         position: 1,
         name: "Accounting, Taxation & Bookkeeping",
         description:
-          "Reliable and accurate financial support to help you keep your business compliant, organised and financially healthy.",
+          "Comprehensive financial management support that keeps your accounts organised, timely, and compliant with regulatory standards.",
         provider: {
           "@type": "Organization",
           name: site.name,
@@ -69,7 +68,7 @@ const structuredData = {
         position: 2,
         name: "Medical Billing & Solutions",
         description:
-          "End-to-end medical billing support to help healthcare providers improve revenue cycles, reduce claim denials and maintain compliance.",
+          "Structured medical billing workflows that help healthcare practices manage claims efficiently and maintain positive revenue cycles.",
         provider: {
           "@type": "Organization",
           name: site.name,
@@ -80,7 +79,7 @@ const structuredData = {
         position: 3,
         name: "IT Solutions",
         description:
-          "Practical and reliable technology solutions to keep your business secure, connected and running smoothly.",
+          "Practical technology support designed to keep your business systems secure, connected, and operating with maximum reliability.",
         provider: {
           "@type": "Organization",
           name: site.name,
@@ -100,7 +99,6 @@ export default function ServicesPage() {
       />
       <ServicesHero />
       <ServicesOverview />
-      <ServiceDetailedBlocks />
       <WhyChooseServices />
       <ServicesCTA />
     </>

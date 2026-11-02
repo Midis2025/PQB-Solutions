@@ -20,8 +20,8 @@ const contactRows = [
   },
   {
     label: "Our Location",
-    value: "[Your Business Address, City, Country]",
-    href: null as string | null,
+    value: site.address,
+    href: site.mapUrl,
     icon: MapPin,
   },
 ];

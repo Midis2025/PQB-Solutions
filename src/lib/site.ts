@@ -26,7 +26,14 @@ export const site = {
   email: "Support@pqbsolutions.com",
   phone: "+1 (825) 522-0889",
   phoneHref: "tel:+18255220889",
-  address: "[Your Business Address]",
+  address: "39-2803 14 Ave NW, Edmonton, Alberta T6T 2K4",
+  addressLine1: "39-2803 14 Ave NW",
+  addressLine2: "Edmonton, Alberta T6T 2K4",
+  city: "Edmonton",
+  province: "Alberta",
+  postalCode: "T6T 2K4",
+  country: "Canada",
+  mapUrl: "https://maps.google.com/?q=39-2803+14+Ave+NW,+Edmonton,+AB+T6T+2K4",
 } as const;
 
 export type NavItem = {

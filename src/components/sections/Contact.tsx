@@ -19,7 +19,7 @@ const details = [
   {
     label: "Location",
     value: site.address,
-    href: null,
+    href: site.mapUrl,
     icon: MapPin,
   },
 ];

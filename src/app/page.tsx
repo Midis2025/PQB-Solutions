@@ -26,7 +26,14 @@ const structuredData = {
     "PQB Solutions provides accounting, taxation and bookkeeping, medical billing, and IT solutions to businesses across industries.",
   areaServed: industries.map((industry) => industry.label),
   founder: { "@type": "Person", name: site.director, jobTitle: "Director" },
-  address: { "@type": "PostalAddress", streetAddress: site.address },
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: site.addressLine1,
+    addressLocality: site.city,
+    addressRegion: site.province,
+    postalCode: site.postalCode,
+    addressCountry: site.country,
+  },
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Business Services",
