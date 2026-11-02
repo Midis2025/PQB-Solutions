@@ -19,10 +19,10 @@ export const metadata: Metadata = {
       "Contact PQB Solutions to discuss accounting, medical billing and IT services. Send us an enquiry and our team will help you explore the right solutions.",
     images: [
       {
-        url: "/images/contact-hero-desk.webp",
-        width: 1200,
-        height: 800,
-        alt: "PQB Solutions modern corporate office desk with laptop and indoor greenery",
+        url: "/images/contact-hero-team.webp",
+        width: 1024,
+        height: 683,
+        alt: "PQB Solutions professional team collaborating around a conference table with laptops and financial documents",
       },
     ],
   },
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     title: "Contact PQB Solutions | Get in Touch",
     description:
       "Contact PQB Solutions to discuss accounting, medical billing and IT services. Send us an enquiry and our team will help you explore the right solutions.",
-    images: ["/images/contact-hero-desk.webp"],
+    images: ["/images/contact-hero-team.webp"],
   },
 };
 
