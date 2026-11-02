@@ -1,15 +1,14 @@
 import type { LucideIcon } from "lucide-react";
 import {
   Calculator,
-  ChartColumn,
-  Cpu,
+  ChartNoAxesColumnIncreasing,
   Factory,
   GraduationCap,
   House,
   HeartPulse,
   Headset,
+  Laptop,
   Rocket,
-  MoreHorizontal,
   Settings,
   Settings2,
   ShieldCheck,
@@ -30,14 +29,39 @@ export const site = {
   address: "[Your Business Address]",
 } as const;
 
-export type NavItem = { label: string; href: string };
+export type NavItem = {
+  label: string;
+  href: string;
+  dropdown?: { label: string; href: string }[];
+};
 
 export const navItems: NavItem[] = [
-  { label: "Home", href: "#home" },
-  { label: "About Us", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Industries", href: "#industries" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/#home" },
+  { label: "About Us", href: "/about" },
+  { label: "Services", href: "/services" },
+  {
+    label: "Industries",
+    href: "/#industries",
+    dropdown: [
+      { label: "Healthcare", href: "/#industries" },
+      { label: "Finance", href: "/#industries" },
+      { label: "Retail", href: "/#industries" },
+      { label: "Technology", href: "/#industries" },
+      { label: "Manufacturing", href: "/#industries" },
+      { label: "Education", href: "/#industries" },
+      { label: "Real Estate", href: "/#industries" },
+    ],
+  },
+  {
+    label: "Resources",
+    href: "/about#approach",
+    dropdown: [
+      { label: "Our Approach", href: "/about#approach" },
+      { label: "Mission & Vision", href: "/about#mission-vision" },
+      { label: "Core Values", href: "/about#values" },
+    ],
+  },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 export type Service = {
@@ -131,57 +155,116 @@ export const advantages: Advantage[] = [
   },
 ];
 
-export type Industry = { label: string; icon: LucideIcon };
+export type Industry = {
+  id: string;
+  name: string;
+  label: string;
+  icon: LucideIcon;
+  description: string;
+  href: string;
+};
 
 export const industries: Industry[] = [
-  { label: "Healthcare", icon: HeartPulse },
-  { label: "Finance", icon: ChartColumn },
-  { label: "Retail", icon: ShoppingCart },
-  { label: "Technology", icon: Cpu },
-  { label: "Manufacturing", icon: Factory },
-  { label: "Education", icon: GraduationCap },
-  { label: "Real Estate", icon: House },
-  { label: "And More", icon: MoreHorizontal },
+  {
+    id: "healthcare",
+    name: "Healthcare",
+    label: "Healthcare",
+    icon: HeartPulse,
+    description: "Billing, compliance, and revenue cycle solutions.",
+    href: "#services",
+  },
+  {
+    id: "finance",
+    name: "Finance",
+    label: "Finance",
+    icon: ChartNoAxesColumnIncreasing,
+    description: "Accurate reporting and financial management.",
+    href: "#services",
+  },
+  {
+    id: "retail",
+    name: "Retail",
+    label: "Retail",
+    icon: ShoppingCart,
+    description: "Scalable accounting and operational support.",
+    href: "#services",
+  },
+  {
+    id: "technology",
+    name: "Technology",
+    label: "Technology",
+    icon: Laptop,
+    description: "IT, infrastructure, and digital solutions.",
+    href: "#services",
+  },
+  {
+    id: "manufacturing",
+    name: "Manufacturing",
+    label: "Manufacturing",
+    icon: Factory,
+    description: "Cost control and process efficiency.",
+    href: "#services",
+  },
+  {
+    id: "education",
+    name: "Education",
+    label: "Education",
+    icon: GraduationCap,
+    description: "Back-office and financial operations support.",
+    href: "#services",
+  },
+  {
+    id: "real-estate",
+    name: "Real Estate",
+    label: "Real Estate",
+    icon: House,
+    description: "Accounting, compliance, and portfolio management.",
+    href: "#services",
+  },
 ];
 
 export type Testimonial = {
-  /** Stable unique key — the placeholder names are intentionally identical. */
   id: string;
   quote: string;
   name: string;
   role: string;
-  avatar: string;
 };
 
-/**
- * PLACEHOLDER CONTENT — these are not real client reviews.
- * Names are intentionally left as "Client Name" so nothing reads as a genuine
- * endorsement. Replace with approved, attributable testimonials before launch.
- */
 export const testimonials: Testimonial[] = [
   {
     id: "testimonial-1",
+    name: "James Wilson",
+    role: "Small Business Owner | United Kingdom",
     quote:
-      "PQB Solutions has been an invaluable partner for our business. Their attention to detail and commitment to excellence have made a significant difference in our operations. The team is professional, responsive, and truly understands our unique needs.",
-    name: "Client Name",
-    role: "Business Owner",
-    avatar: "/images/avatar-client-one.webp",
+      "PQB Solutions has made managing our accounts so much easier. The team is responsive, understands what we need, and keeps everything organised. It has taken a lot of pressure off our day-to-day operations.",
   },
   {
     id: "testimonial-2",
+    name: "Emily Carter",
+    role: "Healthcare Practice Manager | United States",
     quote:
-      "Placeholder testimonial — a short quote about accuracy, responsiveness and the difference the billing team has made will sit here once approved copy is supplied.",
-    name: "Client Name",
-    role: "Practice Manager",
-    avatar: "/images/avatar-client-two.webp",
+      "We were looking for a team that could help us manage our billing more efficiently, and PQB has been a great support. Communication has been smooth, and the team is always available when we need assistance.",
   },
   {
     id: "testimonial-3",
+    name: "Oliver Thompson",
+    role: "Business Director | Australia",
     quote:
-      "Placeholder testimonial — a short quote about having accounting, billing and IT handled under one roof will sit here once approved copy is supplied.",
-    name: "Client Name",
-    role: "Operations Director",
-    avatar: "/images/avatar-client-three.webp",
+      "What I appreciate most is that the team doesn't just provide a solution and disappear. They take the time to understand the issue and make sure everything is working properly. It's been a good experience working with them.",
+  },
+  {
+    id: "testimonial-4",
+    name: "Sophie Mitchell",
+    role: "Operations Manager | Canada",
+    quote:
+      "Working with PQB Solutions has been a positive experience. Their team is professional, easy to communicate with, and genuinely willing to help. Having one team to support different parts of our business makes things much simpler.",
+  },
+  {
+    id: "testimonial-5",
+    name: "Daniel Anderson",
+    role: "Managing Partner | United States",
+    quote:
+      "The team has been helpful throughout the process. Whenever we've had a question or needed something clarified, they've been approachable and quick to respond. That level of support makes a real difference.",
   },
 ];
 

@@ -5,13 +5,14 @@ type ContactPayload = {
   email?: unknown;
   phone?: unknown;
   company?: unknown;
+  service?: unknown;
   message?: unknown;
   /** Honeypot — real users never fill this in. */
   website?: unknown;
 };
 
 type FieldErrors = Partial<
-  Record<"fullName" | "email" | "phone" | "message", string>
+  Record<"fullName" | "email" | "phone" | "service" | "message", string>
 >;
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -42,13 +43,15 @@ export async function POST(request: Request) {
   const email = asTrimmedString(payload.email);
   const phone = asTrimmedString(payload.phone);
   const company = asTrimmedString(payload.company);
+  const service = asTrimmedString(payload.service);
   const message = asTrimmedString(payload.message);
 
   const errors: FieldErrors = {};
 
   if (fullName.length < 2) errors.fullName = "Please enter your full name.";
   if (!EMAIL_PATTERN.test(email)) errors.email = "Please enter a valid email address.";
-  if (!PHONE_PATTERN.test(phone)) errors.phone = "Please enter a valid phone number.";
+  if (phone && !PHONE_PATTERN.test(phone)) errors.phone = "Please enter a valid phone number.";
+  if (payload.service !== undefined && !service) errors.service = "Please select a service.";
   if (message.length < 10) {
     errors.message = "Please tell us a little more (at least 10 characters).";
   }
@@ -65,8 +68,9 @@ export async function POST(request: Request) {
   console.info("[contact] enquiry received", {
     fullName,
     email,
-    phone,
+    phone: phone || "—",
     company: company || "—",
+    service: service || "—",
     messageLength: message.length,
     receivedAt: new Date().toISOString(),
   });

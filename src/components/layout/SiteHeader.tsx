@@ -1,7 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, Menu, Search, X } from "lucide-react";
+import { ArrowRight, ChevronDown, Menu, Search, X } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { BrandLogo } from "@/components/ui/BrandLogo";
 import { industries, navItems, services } from "@/lib/site";
@@ -13,26 +15,37 @@ const searchIndex: SearchEntry[] = [
   ...services.map((service) => ({
     label: service.title,
     group: "Services",
-    href: `#${service.id}`,
+    href: `/services#${service.id}`,
   })),
   ...industries.map((industry) => ({
     label: industry.label,
     group: "Industries",
-    href: "#industries",
+    href: "/#industries",
   })),
-  { label: "Why Choose PQB Solutions", group: "Pages", href: "#why-us" },
-  { label: "Client Testimonials", group: "Pages", href: "#testimonials" },
-  { label: "Request a Free Consultation", group: "Pages", href: "#contact" },
+  { label: "Our Services", group: "Pages", href: "/services" },
+  { label: "Why Choose PQB Solutions", group: "Pages", href: "/#why-us" },
+  { label: "Client Testimonials", group: "Pages", href: "/#testimonials" },
+  { label: "Our Story & Values", group: "About", href: "/about" },
+  { label: "Our Approach", group: "About", href: "/about#approach" },
+  { label: "Contact Us", group: "Pages", href: "/contact" },
+  { label: "Request a Free Consultation", group: "Pages", href: "/#contact" },
 ];
 
 const sectionIds = ["home", "about", "services", "industries", "contact"];
 
 export function SiteHeader() {
+  const pathname = usePathname();
+  const router = useRouter();
+  const isAboutPage = pathname === "/about";
+  const isContactPage = pathname === "/contact";
+  const isServicesPage = pathname === "/services";
+
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [activeId, setActiveId] = useState("home");
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -42,7 +55,10 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Section observer on the homepage
   useEffect(() => {
+    if (pathname !== "/") return;
+
     const sections = sectionIds
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => Boolean(el));
@@ -61,7 +77,7 @@ export function SiteHeader() {
 
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -87,6 +103,7 @@ export function SiteHeader() {
         setSearchOpen(false);
         setQuery("");
         setMenuOpen(false);
+        setActiveDropdown(null);
       }
     };
     window.addEventListener("keydown", onKeyDown);
@@ -101,15 +118,62 @@ export function SiteHeader() {
       .slice(0, 6);
   }, [query]);
 
-  const goTo = useCallback((href: string) => {
-    setSearch(false);
-    setMenuOpen(false);
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
-      window.history.replaceState(null, "", href);
-    }
-  }, [setSearch]);
+  const goTo = useCallback(
+    (href: string) => {
+      setSearch(false);
+      setMenuOpen(false);
+      setActiveDropdown(null);
+
+      if (href === "/about") {
+        if (pathname === "/about") {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+          router.push("/about");
+        }
+        return;
+      }
+
+      if (href === "/contact") {
+        if (pathname === "/contact") {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+          router.push("/contact");
+        }
+        return;
+      }
+
+      if (href === "/services") {
+        if (pathname === "/services") {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+          router.push("/services");
+        }
+        return;
+      }
+
+      const hash = href.startsWith("/#")
+        ? href.slice(1)
+        : href.startsWith("#")
+        ? href
+        : null;
+
+      if (hash) {
+        if (pathname === "/") {
+          const target = document.querySelector(hash);
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+            window.history.replaceState(null, "", hash);
+          }
+        } else {
+          router.push(`/${hash}`);
+        }
+        return;
+      }
+
+      router.push(href);
+    },
+    [pathname, router, setSearch],
+  );
 
   return (
     <header
@@ -125,51 +189,119 @@ export function SiteHeader() {
             scrolled ? "h-[72px]" : "h-[80px]"
           }`}
         >
-          <a
-            href="#home"
+          {/* Brand Logo */}
+          <Link
+            href="/#home"
             onClick={(event) => {
               event.preventDefault();
-              goTo("#home");
+              goTo("/#home");
             }}
-            aria-label="PQB Solutions, back to top"
+            aria-label="PQB Solutions, back to home"
             className="shrink-0"
           >
             <BrandLogo priority className="h-11 sm:h-12" />
-          </a>
+          </Link>
 
+          {/* Primary Desktop Nav */}
           <nav aria-label="Primary" className="hidden lg:block">
-            <ul className="flex items-center gap-9 xl:gap-11">
+            <ul className="flex items-center gap-7 xl:gap-9">
               {navItems.map((item) => {
-                const isActive = `#${activeId}` === item.href;
+                const isActive = isAboutPage
+                  ? item.href === "/about"
+                  : isContactPage
+                  ? item.href === "/contact"
+                  : isServicesPage
+                  ? item.href === "/services"
+                  : `#${activeId}` === (item.href.startsWith("/#") ? item.href.slice(1) : item.href);
+
+                const hasDropdown = Boolean(item.dropdown && item.dropdown.length > 0);
+                const isDropdownOpen = activeDropdown === item.label;
+
                 return (
-                  <li key={item.href}>
+                  <li
+                    key={item.label}
+                    className="relative"
+                    onMouseEnter={() => hasDropdown && setActiveDropdown(item.label)}
+                    onMouseLeave={() => hasDropdown && setActiveDropdown(null)}
+                  >
                     <a
                       href={item.href}
                       onClick={(event) => {
-                        event.preventDefault();
-                        goTo(item.href);
+                        if (!hasDropdown) {
+                          event.preventDefault();
+                          goTo(item.href);
+                        }
                       }}
                       aria-current={isActive ? "page" : undefined}
-                      className={`relative inline-flex flex-col items-center py-2 text-[0.95rem] font-medium transition-colors ${
-                        isActive ? "text-brand-500" : "text-ink-700 hover:text-brand-500"
+                      aria-expanded={hasDropdown ? isDropdownOpen : undefined}
+                      aria-haspopup={hasDropdown ? "true" : undefined}
+                      className={`relative inline-flex items-center gap-1.5 py-2 text-[0.94rem] font-medium transition-colors ${
+                        isActive
+                          ? "text-brand-500 font-semibold"
+                          : "text-ink-700 hover:text-brand-500"
                       }`}
                     >
-                      {item.label}
+                      <span>{item.label}</span>
+                      {hasDropdown ? (
+                        <ChevronDown
+                          size={13}
+                          className={`transition-transform duration-200 ${
+                            isDropdownOpen ? "rotate-180 text-brand-500" : "text-ink-400"
+                          }`}
+                        />
+                      ) : null}
+
                       {isActive ? (
                         <motion.span
                           layoutId="nav-underline"
-                          className="absolute -bottom-1 h-[2.5px] w-7 rounded-full bg-brand-500"
+                          className="absolute -bottom-1 left-0 right-0 mx-auto h-[2.5px] w-7 rounded-full bg-brand-500"
                           transition={{ type: "spring", stiffness: 380, damping: 30 }}
                         />
                       ) : null}
                     </a>
+
+                    {/* Dropdown Menu */}
+                    {hasDropdown && item.dropdown ? (
+                      <AnimatePresence>
+                        {isDropdownOpen ? (
+                          <motion.div
+                            initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 6, scale: 0.98 }}
+                            transition={{ duration: 0.18, ease: "easeOut" }}
+                            className="absolute left-1/2 top-full -translate-x-1/2 pt-2 z-50 min-w-[240px]"
+                          >
+                            <div className="rounded-2xl border border-ink-900/8 bg-white p-2 shadow-float backdrop-blur-md">
+                              <ul className="space-y-0.5">
+                                {item.dropdown.map((subItem) => (
+                                  <li key={subItem.label}>
+                                    <a
+                                      href={subItem.href}
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        goTo(subItem.href);
+                                      }}
+                                      className="block rounded-xl px-3.5 py-2 text-[0.87rem] font-medium text-ink-700 transition-colors hover:bg-mint-50 hover:text-brand-600"
+                                    >
+                                      {subItem.label}
+                                    </a>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </motion.div>
+                        ) : null}
+                      </AnimatePresence>
+                    ) : null}
                   </li>
                 );
               })}
             </ul>
           </nav>
 
+          {/* Right Header Actions */}
           <div className="flex items-center gap-2 sm:gap-3">
+            {/* Search Trigger */}
             <button
               type="button"
               onClick={() => setSearch(!searchOpen)}
@@ -181,24 +313,26 @@ export function SiteHeader() {
               {searchOpen ? <X size={20} /> : <Search size={20} />}
             </button>
 
+            {/* Get in Touch CTA Button */}
             <motion.a
-              href="#contact"
+              href="/#contact"
               onClick={(event) => {
                 event.preventDefault();
-                goTo("#contact");
+                goTo("/#contact");
               }}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 400, damping: 22 }}
-              className="group hidden items-center gap-2.5 rounded-full bg-linear-to-r from-brand-500 to-brand-700 px-7 py-3.5 text-[0.88rem] font-semibold text-white shadow-soft transition-shadow hover:shadow-float sm:inline-flex"
+              className="group hidden items-center gap-2 rounded-full bg-brand-500 px-6 py-3 text-[0.88rem] font-semibold text-white shadow-soft transition-all duration-200 hover:bg-brand-600 hover:gap-2.5 sm:inline-flex"
             >
-              Get a Free Consultation
+              <span>Get in Touch</span>
               <ArrowRight
                 size={16}
-                className="transition-transform duration-300 group-hover:translate-x-1"
+                className="transition-transform duration-200 group-hover:translate-x-0.5"
               />
             </motion.a>
 
+            {/* Mobile Menu Trigger */}
             <button
               type="button"
               onClick={() => setMenuOpen((open) => !open)}
@@ -213,6 +347,7 @@ export function SiteHeader() {
         </div>
       </div>
 
+      {/* Search Overlay Panel */}
       <AnimatePresence>
         {searchOpen ? (
           <motion.div
@@ -267,6 +402,7 @@ export function SiteHeader() {
         ) : null}
       </AnimatePresence>
 
+      {/* Mobile Navigation Menu */}
       <AnimatePresence>
         {menuOpen ? (
           <motion.nav
@@ -276,39 +412,49 @@ export function SiteHeader() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.22, ease: "easeOut" }}
-            className="border-t border-ink-900/5 bg-white lg:hidden"
+            className="border-t border-ink-900/5 bg-white lg:hidden max-h-[calc(100vh-80px)] overflow-y-auto"
           >
             <ul className="shell flex flex-col gap-1 py-4">
-              {navItems.map((item) => (
-                <li key={item.href}>
-                  <a
-                    href={item.href}
-                    onClick={(event) => {
-                      event.preventDefault();
-                      goTo(item.href);
-                    }}
-                    className={`block rounded-xl px-4 py-3 text-base font-medium transition-colors ${
-                      `#${activeId}` === item.href
-                        ? "bg-mint-100 text-brand-700"
-                        : "text-ink-700 hover:bg-mint-50"
-                    }`}
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
+              {navItems.map((item) => {
+                const isActive = isAboutPage
+                  ? item.href === "/about"
+                  : isContactPage
+                  ? item.href === "/contact"
+                  : isServicesPage
+                  ? item.href === "/services"
+                  : `#${activeId}` === (item.href.startsWith("/#") ? item.href.slice(1) : item.href);
+
+                return (
+                  <li key={item.label}>
+                    <a
+                      href={item.href}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        goTo(item.href);
+                      }}
+                      className={`block rounded-xl px-4 py-3 text-base font-medium transition-colors ${
+                        isActive
+                          ? "bg-mint-100 text-brand-700 font-semibold"
+                          : "text-ink-700 hover:bg-mint-50"
+                      }`}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                );
+              })}
               <li className="pt-2">
-                <a
-                  href="#contact"
+                <Link
+                  href="/#contact"
                   onClick={(event) => {
                     event.preventDefault();
-                    goTo("#contact");
+                    goTo("/#contact");
                   }}
-                  className="flex w-full items-center justify-center gap-2 rounded-full bg-brand-600 px-5 py-3.5 text-sm font-semibold text-white"
+                  className="flex w-full items-center justify-center gap-2 rounded-full bg-brand-500 px-5 py-3.5 text-sm font-semibold text-white shadow-sm"
                 >
-                  Get a Free Consultation
+                  <span>Get in Touch</span>
                   <ArrowRight size={16} />
-                </a>
+                </Link>
               </li>
             </ul>
           </motion.nav>

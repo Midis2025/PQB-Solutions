@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRight, Target } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { site } from "@/lib/site";
@@ -87,8 +88,8 @@ export function About() {
             </Reveal>
 
             <Reveal delay={0.32}>
-              <a
-                href="#services"
+              <Link
+                href="/about"
                 className="group mt-9 inline-flex items-center gap-3 rounded-full bg-brand-600 px-8 py-[1.05rem] text-[0.95rem] font-semibold text-white shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-700 hover:shadow-float"
               >
                 Learn More About Us
@@ -96,7 +97,7 @@ export function About() {
                   size={18}
                   className="transition-transform duration-300 group-hover:translate-x-1"
                 />
-              </a>
+              </Link>
             </Reveal>
           </div>
 

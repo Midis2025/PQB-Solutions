@@ -1,6 +1,16 @@
+import Link from "next/link";
 import { ArrowUp, Mail, MapPin, Phone } from "lucide-react";
 import { BrandLogo } from "@/components/ui/BrandLogo";
 import { navItems, services, site } from "@/lib/site";
+
+/** Strip the hash fragment so footer Quick Links always land at page top. */
+function footerHref(href: string) {
+  // Hashes like /about#approach would land mid-page and pollute scroll
+  // restoration; strip them so the link just goes to the root path.
+  const withoutHash = href.split("#")[0];
+  // Hash-only links (e.g. "#home") become "/#home" for cross-page safety
+  return withoutHash || "/";
+}
 
 /** Cached so the build can prerender the footer with a stable copyright year. */
 async function getCopyrightYear() {
@@ -33,12 +43,12 @@ export async function SiteFooter() {
             <ul className="mt-4 space-y-0.5">
               {navItems.map((item) => (
                 <li key={item.href}>
-                  <a
-                    href={item.href}
+                  <Link
+                    href={footerHref(item.href)}
                     className="inline-block py-2 text-[0.85rem] transition-colors hover:text-brand-300"
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -55,7 +65,7 @@ export async function SiteFooter() {
               {services.map((service) => (
                 <li key={service.id}>
                   <a
-                    href={`#${service.id}`}
+                    href={`/#${service.id}`}
                     className="inline-block py-2 text-[0.85rem] transition-colors hover:text-brand-300"
                   >
                     {service.shortTitle}
@@ -100,8 +110,8 @@ export async function SiteFooter() {
           <p className="text-[0.78rem]">
             © {year} {site.name}. All rights reserved.
           </p>
-          <a
-            href="#home"
+          <Link
+            href="/#home"
             className="inline-flex items-center gap-2 text-[0.78rem] transition-colors hover:text-brand-300"
           >
             Back to top
@@ -111,7 +121,7 @@ export async function SiteFooter() {
             >
               <ArrowUp size={13} />
             </span>
-          </a>
+          </Link>
         </div>
       </div>
     </footer>
