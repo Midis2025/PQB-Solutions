@@ -28,7 +28,7 @@ export function MissionVision() {
                 <h3 className="font-serif text-xl sm:text-[1.3rem] font-bold text-ink-900 leading-snug">
                   Our Mission
                 </h3>
-                <p className="mt-2 text-xs leading-relaxed text-ink-500 sm:text-[0.88rem] sm:leading-relaxed">
+                <p className="mt-2 text-sm leading-relaxed text-ink-600 sm:text-[0.92rem]">
                   To deliver reliable, practical and high-quality business solutions that
                   support our clients&apos; operational and growth goals.
                 </p>
@@ -52,7 +52,7 @@ export function MissionVision() {
                 <h3 className="font-serif text-xl sm:text-[1.3rem] font-bold text-ink-900 leading-snug">
                   Our Vision
                 </h3>
-                <p className="mt-2 text-xs leading-relaxed text-ink-500 sm:text-[0.88rem] sm:leading-relaxed">
+                <p className="mt-2 text-sm leading-relaxed text-ink-600 sm:text-[0.92rem]">
                   To be a trusted business solutions partner, known for our professionalism,
                   service quality and long-term client relationships.
                 </p>

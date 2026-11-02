@@ -124,14 +124,15 @@ export function About() {
               delay={0.45}
               direction="up"
               distance={22}
-              className="relative z-10 mx-4 -mt-14 sm:mx-8 sm:-mt-16 lg:absolute lg:bottom-10 lg:right-10 lg:mx-0 lg:mt-0 lg:w-[25rem]"
+              className="relative z-10 mx-2 -mt-14 sm:mx-8 sm:-mt-16 lg:absolute lg:bottom-10 lg:right-10 lg:mx-0 lg:mt-0 lg:w-[25rem]"
             >
-              <div className="flex items-start gap-5 rounded-[1.25rem] bg-white p-6 shadow-float">
+              <div className="flex items-start gap-3.5 sm:gap-5 rounded-[1.25rem] bg-white p-4.5 sm:p-6 shadow-float">
                 <span
                   aria-hidden="true"
-                  className="grid size-14 shrink-0 place-items-center rounded-full bg-brand-50 text-brand-500"
+                  className="grid size-11 sm:size-14 shrink-0 place-items-center rounded-full bg-brand-50 text-brand-500"
                 >
-                  <Target size={24} strokeWidth={1.8} />
+                  <Target size={22} className="sm:hidden" strokeWidth={1.8} />
+                  <Target size={24} className="hidden sm:block" strokeWidth={1.8} />
                 </span>
                 <div>
                   <h3 className="font-sans text-[1.05rem] font-bold text-ink-900">

@@ -214,7 +214,7 @@ export function ContactForm() {
         whileHover={status === "submitting" ? undefined : { scale: 1.01 }}
         whileTap={status === "submitting" ? undefined : { scale: 0.99 }}
         transition={{ type: "spring", stiffness: 400, damping: 24 }}
-        className="group mt-1 inline-flex items-center justify-center gap-2 rounded-xl bg-linear-to-r from-brand-500 to-brand-700 px-6 py-3.5 text-sm font-semibold text-white shadow-soft transition-all duration-300 hover:shadow-float disabled:cursor-not-allowed disabled:opacity-70"
+        className="group mt-1 inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-linear-to-r from-brand-500 to-brand-700 px-6 py-3.5 text-sm font-semibold text-white shadow-soft transition-all duration-300 hover:shadow-float disabled:cursor-not-allowed disabled:opacity-70"
       >
         {status === "submitting" ? (
           <>

@@ -40,8 +40,8 @@ export function AboutCTA() {
 
             {/* CTA Button */}
             <Link
-              href="/#contact"
-              className="group mt-7 inline-flex items-center gap-2 rounded-full bg-brand-500 px-8 py-3.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:bg-brand-600 hover:gap-3 hover:-translate-y-0.5 focus-visible:outline-white"
+              href="/contact"
+              className="group mt-7 inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-brand-500 px-8 py-3.5 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:bg-brand-600 hover:gap-3 hover:-translate-y-0.5 focus-visible:outline-white"
             >
               <span>Get in Touch</span>
               <ArrowRight

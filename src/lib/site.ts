@@ -24,8 +24,8 @@ export const site = {
   director: "Parul Sharma",
   directorTitle: "Director, PQB Solutions",
   email: "Support@pqbsolutions.com",
-  phone: "+1 (XXX) XXX-XXXX",
-  phoneHref: "tel:+1XXXXXXXXX",
+  phone: "+1 (825) 522-0889",
+  phoneHref: "tel:+18255220889",
   address: "[Your Business Address]",
 } as const;
 
@@ -39,19 +39,6 @@ export const navItems: NavItem[] = [
   { label: "Home", href: "/#home" },
   { label: "About Us", href: "/about" },
   { label: "Services", href: "/services" },
-  {
-    label: "Industries",
-    href: "/#industries",
-    dropdown: [
-      { label: "Healthcare", href: "/#industries" },
-      { label: "Finance", href: "/#industries" },
-      { label: "Retail", href: "/#industries" },
-      { label: "Technology", href: "/#industries" },
-      { label: "Manufacturing", href: "/#industries" },
-      { label: "Education", href: "/#industries" },
-      { label: "Real Estate", href: "/#industries" },
-    ],
-  },
   {
     label: "Resources",
     href: "/about#approach",

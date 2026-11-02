@@ -95,7 +95,7 @@ export function OurCoreValues() {
               </h3>
 
               {/* Description */}
-              <p className="mt-1.5 text-xs leading-relaxed text-ink-500 sm:text-[0.84rem] max-w-[200px]">
+              <p className="mt-1.5 text-[0.84rem] leading-relaxed text-ink-500 max-w-[200px]">
                 {item.description}
               </p>
             </Reveal>

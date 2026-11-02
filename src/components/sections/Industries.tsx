@@ -160,7 +160,7 @@ export function Industries() {
           {/* Main Heading: Stays on a single line on desktop */}
           <h2
             id="industries-heading"
-            className="mt-3 font-serif text-[1.95rem] font-bold tracking-tight text-ink-900 sm:text-4xl lg:text-[2.65rem] xl:text-[2.85rem] lg:whitespace-nowrap"
+            className="mt-3 font-serif text-[1.95rem] font-bold tracking-tight text-ink-900 sm:text-4xl lg:text-[2.65rem] xl:text-[2.85rem] text-balance xl:whitespace-nowrap"
           >
             Supporting Businesses Across{" "}
             <span className="text-brand-500">Diverse Industries</span>

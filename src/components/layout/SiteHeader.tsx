@@ -46,7 +46,9 @@ export function SiteHeader() {
   const [query, setQuery] = useState("");
   const [activeId, setActiveId] = useState("home");
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const navRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -85,6 +87,29 @@ export function SiteHeader() {
       document.body.style.overflow = "";
     };
   }, [menuOpen]);
+
+  // Close mobile drawer and dropdown on window resize across breakpoints
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setMenuOpen(false);
+        setMobileExpanded(null);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        setActiveDropdown(null);
+      }
+    };
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, []);
 
   useEffect(() => {
     if (!searchOpen) return;
@@ -203,7 +228,7 @@ export function SiteHeader() {
           </Link>
 
           {/* Primary Desktop Nav */}
-          <nav aria-label="Primary" className="hidden lg:block">
+          <nav ref={navRef} aria-label="Primary" className="hidden lg:block">
             <ul className="flex items-center gap-7 xl:gap-9">
               {navItems.map((item) => {
                 const isActive = isAboutPage
@@ -230,6 +255,9 @@ export function SiteHeader() {
                         if (!hasDropdown) {
                           event.preventDefault();
                           goTo(item.href);
+                        } else {
+                          event.preventDefault();
+                          setActiveDropdown((prev) => (prev === item.label ? null : item.label));
                         }
                       }}
                       aria-current={isActive ? "page" : undefined}
@@ -315,10 +343,10 @@ export function SiteHeader() {
 
             {/* Get in Touch CTA Button */}
             <motion.a
-              href="/#contact"
+              href="/contact"
               onClick={(event) => {
                 event.preventDefault();
-                goTo("/#contact");
+                goTo("/contact");
               }}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
@@ -424,33 +452,81 @@ export function SiteHeader() {
                   ? item.href === "/services"
                   : `#${activeId}` === (item.href.startsWith("/#") ? item.href.slice(1) : item.href);
 
+                const hasDropdown = Boolean(item.dropdown && item.dropdown.length > 0);
+                const isExpanded = mobileExpanded === item.label;
+
                 return (
-                  <li key={item.label}>
-                    <a
-                      href={item.href}
-                      onClick={(event) => {
-                        event.preventDefault();
-                        goTo(item.href);
-                      }}
-                      className={`block rounded-xl px-4 py-3 text-base font-medium transition-colors ${
-                        isActive
-                          ? "bg-mint-100 text-brand-700 font-semibold"
-                          : "text-ink-700 hover:bg-mint-50"
-                      }`}
-                    >
-                      {item.label}
-                    </a>
+                  <li key={item.label} className="flex flex-col">
+                    <div className="flex items-center justify-between">
+                      <a
+                        href={item.href}
+                        onClick={(event) => {
+                          if (!hasDropdown) {
+                            event.preventDefault();
+                            goTo(item.href);
+                          } else {
+                            event.preventDefault();
+                            setMobileExpanded((cur) => (cur === item.label ? null : item.label));
+                          }
+                        }}
+                        className={`flex-1 rounded-xl px-4 py-3 text-base font-medium transition-colors ${
+                          isActive
+                            ? "bg-mint-100 text-brand-700 font-semibold"
+                            : "text-ink-700 hover:bg-mint-50"
+                        }`}
+                      >
+                        {item.label}
+                      </a>
+                      {hasDropdown ? (
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setMobileExpanded((cur) => (cur === item.label ? null : item.label))
+                          }
+                          aria-label={`Toggle ${item.label} sub-links`}
+                          aria-expanded={isExpanded}
+                          className="p-3 text-ink-500 hover:text-brand-600 transition-colors"
+                        >
+                          <ChevronDown
+                            size={18}
+                            className={`transition-transform duration-200 ${
+                              isExpanded ? "rotate-180 text-brand-500" : ""
+                            }`}
+                          />
+                        </button>
+                      ) : null}
+                    </div>
+
+                    {/* Sub-items accordion */}
+                    {hasDropdown && isExpanded && item.dropdown ? (
+                      <ul className="ml-4 mt-1 space-y-1 border-l-2 border-brand-200 pl-3 pb-1">
+                        {item.dropdown.map((subItem) => (
+                          <li key={subItem.label}>
+                            <a
+                              href={subItem.href}
+                              onClick={(event) => {
+                                event.preventDefault();
+                                goTo(subItem.href);
+                              }}
+                              className="block rounded-lg px-3 py-2 text-sm font-medium text-ink-600 transition-colors hover:bg-mint-50 hover:text-brand-600"
+                            >
+                              {subItem.label}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
                   </li>
                 );
               })}
               <li className="pt-2">
                 <Link
-                  href="/#contact"
+                  href="/contact"
                   onClick={(event) => {
                     event.preventDefault();
-                    goTo("/#contact");
+                    goTo("/contact");
                   }}
-                  className="flex w-full items-center justify-center gap-2 rounded-full bg-brand-500 px-5 py-3.5 text-sm font-semibold text-white shadow-sm"
+                  className="flex w-full items-center justify-center gap-2 rounded-full bg-brand-500 px-5 py-3.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-brand-600"
                 >
                   <span>Get in Touch</span>
                   <ArrowRight size={16} />

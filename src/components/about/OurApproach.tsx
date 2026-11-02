@@ -45,7 +45,7 @@ export function OurApproach() {
     >
       <div className="shell">
         {/* Wide Pale-Teal Card Container */}
-        <div className="rounded-[28px] sm:rounded-[32px] bg-[#EAF7F5] p-8 sm:p-10 lg:p-14">
+        <div className="rounded-[28px] sm:rounded-[32px] bg-[#EAF7F5] p-6 sm:p-10 lg:p-14">
           <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
             {/* Left Side: Copy */}
             <div className="lg:col-span-5">

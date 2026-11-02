@@ -23,7 +23,7 @@ export function ServicesHero() {
       {/* Right Column: Master Office Desk Photograph on desktop */}
       <div className="relative w-full h-[320px] sm:h-[400px] lg:absolute lg:inset-y-0 lg:right-0 lg:h-full lg:w-[58%] xl:w-[54%] overflow-hidden">
         <Image
-          src="/images/services-hero-desk.webp"
+          src="/images/services-hero-clean.webp"
           alt="Modern corporate office desk with laptop, green potted plant and natural daylight"
           fill
           priority

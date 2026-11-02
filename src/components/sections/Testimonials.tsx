@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Quote } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Reveal } from "@/components/ui/Reveal";
 import { testimonials } from "@/lib/site";
 
@@ -58,6 +58,33 @@ export function Testimonials() {
     return () => window.clearInterval(timer);
   }, [paused, reduceMotion, handleNext]);
 
+  // Touch swipe support for mobile & tablet
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchEndX.current = null;
+    setPaused(true);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const onTouchEnd = () => {
+    setPaused(false);
+    if (touchStartX.current === null || touchEndX.current === null) return;
+    const diff = touchStartX.current - touchEndX.current;
+    if (diff > 45) {
+      handleNext();
+    } else if (diff < -45) {
+      handlePrev();
+    }
+    touchStartX.current = null;
+    touchEndX.current = null;
+  };
+
   return (
     <section
       id="testimonials"
@@ -96,8 +123,13 @@ export function Testimonials() {
           onBlurCapture={() => setPaused(false)}
         >
           <Reveal direction="up" distance={20} className="w-full">
-            {/* Sliding Track Viewport */}
-            <div className="relative w-full overflow-hidden py-1">
+            {/* Sliding Track Viewport with Touch Pan */}
+            <div
+              className="relative w-full overflow-hidden py-1 touch-pan-y"
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEnd}
+            >
               <motion.div
                 className="flex items-stretch"
                 animate={{

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUp, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowUp, Mail, Phone } from "lucide-react";
 import { BrandLogo } from "@/components/ui/BrandLogo";
 import { navItems, services, site } from "@/lib/site";
 
@@ -64,12 +64,12 @@ export async function SiteFooter() {
             <ul className="mt-4 space-y-0.5">
               {services.map((service) => (
                 <li key={service.id}>
-                  <a
-                    href={`/#${service.id}`}
+                  <Link
+                    href={`/services#${service.id}`}
                     className="inline-block py-2 text-[0.85rem] transition-colors hover:text-brand-300"
                   >
                     {service.shortTitle}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -97,10 +97,6 @@ export async function SiteFooter() {
                 >
                   {site.phone}
                 </a>
-              </li>
-              <li className="flex items-start gap-3">
-                <MapPin size={15} aria-hidden="true" className="mt-0.5 shrink-0 text-brand-400" />
-                <span>{site.address}</span>
               </li>
             </ul>
           </div>

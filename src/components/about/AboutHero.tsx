@@ -117,7 +117,7 @@ export function AboutHero() {
 
               {/* Contact Us Button */}
               <Link
-                href="/#contact"
+                href="/contact"
                 className="inline-flex items-center rounded-full border border-white/35 px-7 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:border-white hover:bg-white/10 hover:-translate-y-0.5 focus-visible:outline-white"
               >
                 Contact Us

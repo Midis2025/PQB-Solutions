@@ -62,7 +62,7 @@ export function Hero() {
             <div className="mt-10 flex flex-col gap-3.5 sm:flex-row sm:items-center">
               <a
                 href="#contact"
-                className="group inline-flex items-center justify-center gap-2.5 rounded-full bg-deep-800 px-9 py-[1.15rem] text-[0.95rem] font-semibold text-white shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:bg-deep-900 hover:shadow-float"
+                className="group inline-flex items-center justify-center gap-2.5 rounded-full bg-deep-800 px-6 sm:px-9 py-3.5 sm:py-[1.15rem] text-[0.95rem] font-semibold text-white shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:bg-deep-900 hover:shadow-float"
               >
                 Get a Free Consultation
                 <ArrowRight
@@ -72,7 +72,7 @@ export function Hero() {
               </a>
               <a
                 href="#services"
-                className="group inline-flex items-center justify-center gap-2.5 rounded-full border border-ink-900/12 bg-white px-9 py-[1.15rem] text-[0.95rem] font-semibold text-ink-900 shadow-xs transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-400 hover:text-brand-600 hover:shadow-soft"
+                className="group inline-flex items-center justify-center gap-2.5 rounded-full border border-ink-900/12 bg-white px-6 sm:px-9 py-3.5 sm:py-[1.15rem] text-[0.95rem] font-semibold text-ink-900 shadow-xs transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-400 hover:text-brand-600 hover:shadow-soft"
               >
                 Our Services
                 <ArrowRight

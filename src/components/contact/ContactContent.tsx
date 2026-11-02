@@ -15,7 +15,7 @@ const contactRows = [
   {
     label: "Call Us",
     value: site.phone,
-    href: null as string | null,
+    href: site.phoneHref,
     icon: Phone,
   },
   {

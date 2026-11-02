@@ -364,7 +364,7 @@ export function ContactPageForm() {
         whileHover={status === "submitting" ? undefined : { scale: 1.01 }}
         whileTap={status === "submitting" ? undefined : { scale: 0.99 }}
         transition={{ type: "spring", stiffness: 400, damping: 24 }}
-        className="group mt-1 inline-flex w-fit items-center justify-center gap-2 rounded-lg bg-brand-500 px-7 py-3 text-sm font-semibold text-white shadow-soft transition-all duration-300 hover:bg-brand-600 hover:gap-3 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70 sm:rounded-xl sm:px-8 sm:py-3.5"
+        className="group mt-1 inline-flex w-full sm:w-fit items-center justify-center gap-2 rounded-lg bg-brand-500 px-7 py-3 text-sm font-semibold text-white shadow-soft transition-all duration-300 hover:bg-brand-600 hover:gap-3 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70 sm:rounded-xl sm:px-8 sm:py-3.5"
       >
         {status === "submitting" ? (
           <>

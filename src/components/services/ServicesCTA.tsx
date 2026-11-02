@@ -9,7 +9,7 @@ export function ServicesCTA() {
     <section aria-labelledby="services-cta-heading" className="bg-white py-14 sm:py-18 lg:py-20">
       <div className="shell">
         <Reveal direction="up" distance={24}>
-          <div className="relative overflow-hidden rounded-[26px] sm:rounded-[32px] bg-[#0C1E2B] px-8 py-10 sm:px-12 sm:py-14 lg:px-16 lg:py-16 shadow-lg">
+          <div className="relative overflow-hidden rounded-[26px] sm:rounded-[32px] bg-[#0C1E2B] px-6 py-9 sm:px-12 sm:py-14 lg:px-16 lg:py-16 shadow-lg">
             {/* Subtle decorative teal corner accents */}
             <div
               aria-hidden="true"
@@ -62,10 +62,10 @@ export function ServicesCTA() {
               />
 
               {/* Right CTA Button */}
-              <div className="shrink-0">
+              <div className="w-full sm:w-auto shrink-0">
                 <Link
                   href="/contact"
-                  className="group inline-flex items-center gap-2.5 rounded-full bg-white px-8 py-3.5 text-sm font-semibold text-ink-900 shadow-sm transition-all duration-300 hover:bg-brand-50 hover:text-brand-700 hover:gap-3.5 hover:shadow-md"
+                  className="group inline-flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-full bg-white px-7 sm:px-8 py-3.5 text-sm font-semibold text-ink-900 shadow-sm transition-all duration-300 hover:bg-brand-50 hover:text-brand-700 hover:gap-3.5 hover:shadow-md"
                 >
                   <span>Get in Touch</span>
                   <ArrowRight

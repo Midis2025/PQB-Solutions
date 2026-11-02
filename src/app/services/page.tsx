@@ -22,7 +22,7 @@ export const metadata: Metadata = {
       "Explore PQB Solutions' accounting, taxation, bookkeeping, medical billing and IT support services designed to help businesses operate more efficiently.",
     images: [
       {
-        url: "/images/services-hero-desk.webp",
+        url: "/images/services-hero-clean.webp",
         width: 1200,
         height: 630,
         alt: "PQB Solutions Business Support Services",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title: "Services | Accounting, Medical Billing & IT Solutions – PQB",
     description:
       "Explore PQB Solutions' accounting, taxation, bookkeeping, medical billing and IT support services designed to help businesses operate more efficiently.",
-    images: ["/images/services-hero-desk.webp"],
+    images: ["/images/services-hero-clean.webp"],
   },
 };
 
