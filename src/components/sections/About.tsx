@@ -109,8 +109,8 @@ export function About() {
                 className="relative w-full overflow-hidden rounded-[1.5rem] bg-mint-100 shadow-float lg:rounded-r-none lg:[mask-image:linear-gradient(to_right,transparent_0%,rgba(0,0,0,0.3)_6%,rgba(0,0,0,0.85)_14%,#000_24%)]"
               >
                 <Image
-                  src="/images/about-pqb-office.webp"
-                  alt="PQB Solutions office interior with the company's branding on the wall, glass-walled meeting rooms and a city skyline beyond"
+                  src="/images/about-financial-consultation.webp"
+                  alt="Accountants reviewing financial statements, bank accounts, and business spreadsheets"
                   fill
                   loading="lazy"
                   sizes="(max-width: 1024px) 92vw, 58vw"
