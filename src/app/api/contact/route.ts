@@ -1,82 +1,214 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
+import { sendContactNotification, sendUserConfirmation } from "@/lib/resend";
 
-type ContactPayload = {
-  fullName?: unknown;
-  email?: unknown;
-  phone?: unknown;
-  company?: unknown;
-  service?: unknown;
-  message?: unknown;
-  /** Honeypot — real users never fill this in. */
-  website?: unknown;
-};
+// Valid dropdown service options
+export const PERMITTED_SERVICES = [
+  "Accounting, Taxation & Bookkeeping",
+  "Medical Billing & Solutions",
+  "IT Solutions",
+  "General Enquiry",
+  "Other",
+] as const;
 
-type FieldErrors = Partial<
-  Record<"fullName" | "email" | "phone" | "service" | "message", string>
->;
+// Phone number regex pattern allowing standard domestic and international formats
+const PHONE_PATTERN = /^[+()\d\s.-]{7,25}$/;
 
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-const PHONE_PATTERN = /^[+()\d\s.-]{7,20}$/;
+/**
+ * Server-side Zod validation schema
+ */
+const contactSchema = z.object({
+  fullName: z
+    .string()
+    .trim()
+    .min(1, "Please enter your full name.")
+    .min(2, "Full name must be at least 2 characters.")
+    .max(100, "Full name cannot exceed 100 characters."),
+  email: z
+    .string()
+    .trim()
+    .min(1, "Please enter your email address.")
+    .email("Please enter a valid email address.")
+    .max(254, "Email address cannot exceed 254 characters."),
+  businessName: z
+    .string()
+    .trim()
+    .max(150, "Business name cannot exceed 150 characters.")
+    .optional()
+    .or(z.literal("")),
+  company: z // Accepted alias from older / alternative form variants
+    .string()
+    .trim()
+    .max(150, "Company name cannot exceed 150 characters.")
+    .optional()
+    .or(z.literal("")),
+  phone: z
+    .string()
+    .trim()
+    .max(30, "Phone number is too long.")
+    .refine((val) => !val || PHONE_PATTERN.test(val), {
+      message: "Please enter a valid phone number.",
+    })
+    .optional()
+    .or(z.literal("")),
+  service: z
+    .string()
+    .trim()
+    .optional()
+    .transform((val) => {
+      if (!val) return "General Enquiry";
+      return val;
+    })
+    .refine(
+      (val) => PERMITTED_SERVICES.includes(val as (typeof PERMITTED_SERVICES)[number]),
+      {
+        message: "Please select a valid service from the list.",
+      }
+    ),
+  message: z
+    .string()
+    .trim()
+    .min(1, "Please enter your message.")
+    .min(10, "Message must be at least 10 characters.")
+    .max(5000, "Message cannot exceed 5000 characters."),
+  website: z.string().optional(), // Honeypot field
+});
 
-function asTrimmedString(value: unknown): string {
-  return typeof value === "string" ? value.trim() : "";
+/**
+ * Basic in-memory rate limiting map for edge/serverless mitigation.
+ * Limits each IP to 5 submissions per 10-minute sliding window.
+ */
+const rateLimitMap = new Map<string, { count: number; expiresAt: number }>();
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const windowMs = 10 * 60 * 1000; // 10 minutes
+  const maxSubmissions = 6;
+
+  // Periodic cleanup of expired entries
+  if (rateLimitMap.size > 200) {
+    for (const [key, value] of rateLimitMap.entries()) {
+      if (value.expiresAt < now) {
+        rateLimitMap.delete(key);
+      }
+    }
+  }
+
+  const record = rateLimitMap.get(ip);
+  if (!record || record.expiresAt < now) {
+    rateLimitMap.set(ip, { count: 1, expiresAt: now + windowMs });
+    return false;
+  }
+
+  record.count += 1;
+  return record.count > maxSubmissions;
 }
 
 export async function POST(request: Request) {
-  let payload: ContactPayload;
+  // 1. IP & Rate limiting check
+  const forwardedFor = request.headers.get("x-forwarded-for");
+  const clientIp = forwardedFor ? forwardedFor.split(",")[0].trim() : "127.0.0.1";
 
+  if (isRateLimited(clientIp)) {
+    console.warn(`[contact] Rate limit exceeded for IP: ${clientIp}`);
+    return NextResponse.json(
+      {
+        ok: false,
+        success: false,
+        message: "Too many submissions. Please wait a few minutes before trying again.",
+      },
+      { status: 429 }
+    );
+  }
+
+  // 2. Parse JSON body
+  let rawBody: unknown;
   try {
-    payload = (await request.json()) as ContactPayload;
+    rawBody = await request.json();
   } catch {
     return NextResponse.json(
-      { ok: false, message: "Invalid request body." },
-      { status: 400 },
+      {
+        ok: false,
+        success: false,
+        message: "Invalid request body.",
+      },
+      { status: 400 }
     );
   }
 
-  // Silently accept bot submissions so they get no useful signal.
-  if (asTrimmedString(payload.website)) {
-    return NextResponse.json({ ok: true, message: "Thank you." });
+  // 3. Honeypot check (silently drop bot submissions)
+  if (
+    rawBody &&
+    typeof rawBody === "object" &&
+    "website" in rawBody &&
+    Boolean(rawBody.website)
+  ) {
+    console.info(`[contact] Honeypot triggered by ${clientIp}. Ignoring submission.`);
+    return NextResponse.json({
+      ok: true,
+      success: true,
+      message: "Your enquiry has been submitted successfully.",
+    });
   }
 
-  const fullName = asTrimmedString(payload.fullName);
-  const email = asTrimmedString(payload.email);
-  const phone = asTrimmedString(payload.phone);
-  const company = asTrimmedString(payload.company);
-  const service = asTrimmedString(payload.service);
-  const message = asTrimmedString(payload.message);
+  // 4. Schema validation with Zod
+  const result = contactSchema.safeParse(rawBody);
 
-  const errors: FieldErrors = {};
+  if (!result.success) {
+    const fieldErrors: Record<string, string> = {};
+    for (const issue of result.error.issues) {
+      const field = issue.path[0];
+      if (typeof field === "string" && !fieldErrors[field]) {
+        fieldErrors[field] = issue.message;
+      }
+    }
 
-  if (fullName.length < 2) errors.fullName = "Please enter your full name.";
-  if (!EMAIL_PATTERN.test(email)) errors.email = "Please enter a valid email address.";
-  if (phone && !PHONE_PATTERN.test(phone)) errors.phone = "Please enter a valid phone number.";
-  if (payload.service !== undefined && !service) errors.service = "Please select a service.";
-  if (message.length < 10) {
-    errors.message = "Please tell us a little more (at least 10 characters).";
-  }
-
-  if (Object.keys(errors).length > 0) {
     return NextResponse.json(
-      { ok: false, message: "Please correct the highlighted fields.", errors },
-      { status: 422 },
+      {
+        ok: false,
+        success: false,
+        message: "Please check the submitted information.",
+        errors: fieldErrors,
+      },
+      { status: 422 }
     );
   }
 
-  // Delivery hook: connect an email provider / CRM here before going live.
-  // Nothing is persisted by default so no personal data is written to disk.
-  console.info("[contact] enquiry received", {
+  const { fullName, email, phone, businessName, company, service, message } = result.data;
+  const resolvedBusinessName = businessName || company || "";
+
+  // 5. Send admin notification email via Resend
+  const emailResult = await sendContactNotification({
     fullName,
+    businessName: resolvedBusinessName,
     email,
-    phone: phone || "—",
-    company: company || "—",
-    service: service || "—",
-    messageLength: message.length,
-    receivedAt: new Date().toISOString(),
+    phone,
+    service,
+    message,
   });
 
+  if (!emailResult.success) {
+    return NextResponse.json(
+      {
+        ok: false,
+        success: false,
+        message:
+          "Unable to deliver your enquiry at this moment. Please email Support@pqbsolutions.com directly.",
+        errorCode: emailResult.code,
+      },
+      { status: 502 }
+    );
+  }
+
+  // 6. Optionally dispatch user confirmation autoresponder in the background
+  void sendUserConfirmation({ fullName, email }).catch((err) => {
+    console.warn("[contact] Autoresponder background send error:", err);
+  });
+
+  // 7. Successful submission response
   return NextResponse.json({
     ok: true,
-    message: "Thank you — your message has been received. We'll be in touch shortly.",
+    success: true,
+    message: "Your enquiry has been submitted successfully.",
   });
 }

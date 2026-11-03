@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Great_Vibes, Inter, Playfair_Display } from "next/font/google";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -104,6 +105,7 @@ export default function RootLayout({
         <SiteHeader />
         <main id="main">{children}</main>
         <SiteFooter />
+        <WhatsAppButton />
       </body>
     </html>
   );

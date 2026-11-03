@@ -63,172 +63,162 @@ export function Hero() {
     <section
       id="home"
       aria-labelledby="hero-heading"
-      className="relative overflow-hidden bg-gradient-to-br from-white via-[#F7FCFB] to-[#EEF9F7] pt-20 sm:pt-24 lg:pt-0 lg:min-h-[580px] xl:min-h-[640px] lg:flex lg:items-center pb-16 sm:pb-20 lg:pb-0"
+      className="relative overflow-hidden bg-gradient-to-br from-white via-[#F7FCFB] to-[#EEF9F7] pt-24 sm:pt-28 lg:pt-28 xl:pt-32 pb-24 sm:pb-28 lg:pb-36"
     >
-      {/* Subtle ambient lighting on the left */}
+      {/* Subtle ambient lighting on the background */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 select-none">
         <div className="absolute top-10 left-10 size-[26rem] rounded-full bg-brand-200/[0.18] blur-3xl" />
+        <div className="absolute -top-16 right-10 size-[32rem] rounded-full bg-mint-100/60 blur-3xl" />
       </div>
 
-      {/* Right Column: Medical Billing, Accounting & Technology Solutions Photograph (~52% width on desktop; renders first on mobile) */}
-      <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-auto lg:absolute lg:inset-y-0 lg:right-0 lg:h-full lg:w-[50%] xl:w-[52%] overflow-hidden">
-        <Image
-          src="/images/hero-medical-billing-accounting.webp"
-          alt="Medical billing specialist calculating claims with stethoscope, documents, and connected technology network"
-          fill
-          priority
-          sizes="(max-width: 1024px) 100vw, 52vw"
-          className="object-cover object-[center_40%]"
-        />
-
-        {/* Mobile vertical gradient transition into the light hero background */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-[#F7FCFB] via-[#F7FCFB]/30 to-transparent lg:hidden"
-        />
-      </div>
-
-      {/* Elegant Curved Teal Divider between Left Light background and Right Image on Desktop */}
-      <div
-        aria-hidden="true"
-        className="hidden lg:block absolute inset-y-0 left-0 w-[50%] xl:w-[48%] z-10 pointer-events-none select-none"
-      >
-        <svg
-          className="absolute -right-32 inset-y-0 h-full w-[240px] text-[#F7FCFB]"
-          viewBox="0 0 240 680"
-          preserveAspectRatio="none"
-          fill="currentColor"
-        >
-          {/* Light background Curved Extension */}
-          <path d="M 0 0 L 130 0 Q 210 340 130 680 L 0 680 Z" />
-          {/* Teal Contour Accent Line */}
-          <path
-            d="M 130 0 Q 210 340 130 680"
-            stroke="#24A69A"
-            strokeWidth="3.5"
-            strokeOpacity="0.6"
-            fill="none"
-          />
-        </svg>
-      </div>
-
-      {/* Left Column Content Area within Container (~50% desktop, vertically centered) */}
-      <div className="shell relative z-20 w-full">
-        <div className="w-full lg:w-[50%] xl:w-[48%] py-8 sm:py-12 lg:py-24 xl:py-28">
-          <motion.div
-            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduceMotion ? 0.2 : 0.45, ease: [0.22, 1, 0.36, 1] }}
-          >
-            {/* Trust Pill Badge */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-brand-200/90 bg-white px-4 py-1.5 sm:px-4.5 sm:py-2 text-[0.74rem] sm:text-xs font-semibold tracking-wide text-ink-800 shadow-[0_2px_8px_rgba(20,44,61,0.04)]">
-              <Layers size={13} className="text-brand-500 shrink-0 sm:size-3.5" strokeWidth={2.2} />
-              <span>Your Trusted Partner for Business Growth</span>
-            </div>
-
-            {/* Main Heading */}
-            <h1
-              id="hero-heading"
-              className="mt-4 sm:mt-5 text-balance font-serif text-[clamp(1.9rem,6.4vw,3.15rem)] font-bold leading-[1.14] tracking-[-0.022em] text-[#142C3D]"
+      {/* Main Hero Container with Balanced Layout (Left aligns with .shell, Right centers the image with equal spacing on both sides) */}
+      <div className="relative z-20 w-full pl-[max(1.25rem,calc((100vw-80rem)/2+1.25rem))] md:pl-[max(2rem,calc((100vw-80rem)/2+2rem))] 2xl:pl-[max(2rem,calc((100vw-86rem)/2+2rem))] pr-[max(1.25rem,calc((100vw-80rem)/2+1.25rem))] md:pr-[max(2rem,calc((100vw-80rem)/2+2rem))] lg:pr-0">
+        <div className="flex flex-col lg:flex-row lg:items-center gap-12 lg:gap-0">
+          {/* Left Column: Value Proposition & Actions */}
+          <div className="w-full lg:w-[480px] xl:w-[530px] shrink-0">
+            <motion.div
+              initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: reduceMotion ? 0.2 : 0.45, ease: [0.22, 1, 0.36, 1] }}
             >
-              Accounting. Medical Billing.
-              <br />
-              IT Solutions.
-              <br />
-              <span className="text-brand-500">All Under One Roof.</span>
-            </h1>
+              {/* Trust Pill Badge */}
+              <div className="inline-flex items-center gap-2 rounded-full border border-brand-200/90 bg-white px-4 py-1.5 sm:px-4.5 sm:py-2 text-[0.74rem] sm:text-xs font-semibold tracking-wide text-ink-800 shadow-[0_2px_8px_rgba(20,44,61,0.04)]">
+                <Layers size={13} className="text-brand-500 shrink-0 sm:size-3.5" strokeWidth={2.2} />
+                <span>Your Trusted Partner for Business Growth</span>
+              </div>
 
-            {/* Supporting Description */}
-            <p className="mt-3.5 sm:mt-4 max-w-xl text-[0.92rem] leading-relaxed text-ink-600 sm:text-base">
-              At PQB Solutions, we empower businesses with accurate financial
-              management, efficient medical billing, and innovative IT solutions to
-              help you focus on what you do best — growing your business.
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="mt-6 sm:mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Link
-                href="/contact"
-                className="group inline-flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-full bg-deep-800 px-7 sm:px-8 py-3.5 text-sm font-semibold text-white shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:bg-deep-900 hover:shadow-float focus-visible:outline-brand-500 text-center"
+              {/* Main Heading */}
+              <h1
+                id="hero-heading"
+                className="mt-4 sm:mt-5 text-balance font-serif text-[clamp(1.9rem,5.5vw,3.15rem)] font-bold leading-[1.14] tracking-[-0.022em] text-[#142C3D]"
               >
-                <span>Get a Free Consultation</span>
-                <ArrowRight
-                  size={16}
-                  className="transition-transform duration-300 group-hover:translate-x-1"
-                />
-              </Link>
+                Accounting. Medical Billing.
+                <br />
+                IT Solutions.
+                <br />
+                <span className="text-brand-500">All Under One Roof.</span>
+              </h1>
 
-              <Link
-                href="/services"
-                className="group inline-flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-full border border-ink-900/15 bg-white px-7 sm:px-8 py-3.5 text-sm font-semibold text-ink-900 shadow-2xs transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-400 hover:text-brand-600 hover:shadow-soft focus-visible:outline-brand-500 text-center"
-              >
-                <span>Our Services</span>
-                <ArrowRight
-                  size={16}
-                  className="transition-transform duration-300 group-hover:translate-x-1"
-                />
-              </Link>
-            </div>
+              {/* Supporting Description */}
+              <p className="mt-3.5 sm:mt-4 max-w-xl text-[0.92rem] leading-relaxed text-ink-600 sm:text-base">
+                At PQB Solutions, we empower businesses with accurate financial
+                management, efficient medical billing, and innovative IT solutions to
+                help you focus on what you do best — growing your business.
+              </p>
 
-            {/* Trust Indicators: Client Focused, Reliable, Tailored */}
-            <div className="mt-8 sm:mt-9 pt-6 border-t border-slate-200/80">
-              <div className="grid grid-cols-3 items-start gap-2 sm:gap-4 divide-x divide-slate-200/80">
-                {/* Indicator 1 */}
-                <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-2 sm:gap-3 px-1 sm:px-0">
-                  <div
-                    aria-hidden="true"
-                    className="grid size-9 sm:size-10 shrink-0 place-items-center rounded-full bg-[#EAF7F5] text-brand-500"
-                  >
-                    <Users size={17} strokeWidth={1.8} />
-                  </div>
-                  <div>
-                    <h4 className="font-serif text-[0.82rem] sm:text-[0.95rem] font-bold leading-tight text-[#142C3D]">
-                      Client Focused
-                    </h4>
-                    <p className="mt-0.5 text-[0.68rem] sm:text-xs text-ink-500 leading-tight">
-                      Personalised Support
-                    </p>
-                  </div>
-                </div>
+              {/* CTA Buttons */}
+              <div className="mt-6 sm:mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <Link
+                  href="/contact"
+                  className="group inline-flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-full bg-deep-800 px-7 sm:px-8 py-3.5 text-sm font-semibold text-white shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:bg-deep-900 hover:shadow-float focus-visible:outline-brand-500 text-center"
+                >
+                  <span>Get a Free Consultation</span>
+                  <ArrowRight
+                    size={16}
+                    className="transition-transform duration-300 group-hover:translate-x-1"
+                  />
+                </Link>
 
-                {/* Indicator 2 */}
-                <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-2 sm:gap-3 pl-2 sm:pl-4">
-                  <div
-                    aria-hidden="true"
-                    className="grid size-9 sm:size-10 shrink-0 place-items-center rounded-full bg-[#EAF7F5] text-brand-500"
-                  >
-                    <ShieldCheck size={17} strokeWidth={1.8} />
-                  </div>
-                  <div>
-                    <h4 className="font-serif text-[0.82rem] sm:text-[0.95rem] font-bold leading-tight text-[#142C3D]">
-                      Reliable
-                    </h4>
-                    <p className="mt-0.5 text-[0.68rem] sm:text-xs text-ink-500 leading-tight">
-                      &amp; Accurate Services
-                    </p>
-                  </div>
-                </div>
+                <Link
+                  href="/services"
+                  className="group inline-flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-full border border-ink-900/15 bg-white px-7 sm:px-8 py-3.5 text-sm font-semibold text-ink-900 shadow-2xs transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-400 hover:text-brand-600 hover:shadow-soft focus-visible:outline-brand-500 text-center"
+                >
+                  <span>Our Services</span>
+                  <ArrowRight
+                    size={16}
+                    className="transition-transform duration-300 group-hover:translate-x-1"
+                  />
+                </Link>
+              </div>
 
-                {/* Indicator 3 */}
-                <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-2 sm:gap-3 pl-2 sm:pl-4">
-                  <div
-                    aria-hidden="true"
-                    className="grid size-9 sm:size-10 shrink-0 place-items-center rounded-full bg-[#EAF7F5] text-brand-500"
-                  >
-                    <SlidersHorizontal size={17} strokeWidth={1.8} />
+              {/* Trust Indicators: Client Focused, Reliable, Tailored */}
+              <div className="mt-8 sm:mt-9 pt-6 border-t border-slate-200/80">
+                <div className="grid grid-cols-3 items-start gap-2 sm:gap-4 divide-x divide-slate-200/80">
+                  {/* Indicator 1 */}
+                  <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-2 sm:gap-3 px-1 sm:px-0">
+                    <div
+                      aria-hidden="true"
+                      className="grid size-9 sm:size-10 shrink-0 place-items-center rounded-full bg-[#EAF7F5] text-brand-500"
+                    >
+                      <Users size={17} strokeWidth={1.8} />
+                    </div>
+                    <div>
+                      <h4 className="font-serif text-[0.82rem] sm:text-[0.95rem] font-bold leading-tight text-[#142C3D]">
+                        Client Focused
+                      </h4>
+                      <p className="mt-0.5 text-[0.68rem] sm:text-xs text-ink-500 leading-tight">
+                        Personalised Support
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-serif text-[0.82rem] sm:text-[0.95rem] font-bold leading-tight text-[#142C3D]">
-                      Tailored
-                    </h4>
-                    <p className="mt-0.5 text-[0.68rem] sm:text-xs text-ink-500 leading-tight">
-                      Business Solutions
-                    </p>
+
+                  {/* Indicator 2 */}
+                  <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-2 sm:gap-3 pl-2 sm:pl-4">
+                    <div
+                      aria-hidden="true"
+                      className="grid size-9 sm:size-10 shrink-0 place-items-center rounded-full bg-[#EAF7F5] text-brand-500"
+                    >
+                      <ShieldCheck size={17} strokeWidth={1.8} />
+                    </div>
+                    <div>
+                      <h4 className="font-serif text-[0.82rem] sm:text-[0.95rem] font-bold leading-tight text-[#142C3D]">
+                        Reliable
+                      </h4>
+                      <p className="mt-0.5 text-[0.68rem] sm:text-xs text-ink-500 leading-tight">
+                        &amp; Accurate Services
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Indicator 3 */}
+                  <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-2 sm:gap-3 pl-2 sm:pl-4">
+                    <div
+                      aria-hidden="true"
+                      className="grid size-9 sm:size-10 shrink-0 place-items-center rounded-full bg-[#EAF7F5] text-brand-500"
+                    >
+                      <SlidersHorizontal size={17} strokeWidth={1.8} />
+                    </div>
+                    <div>
+                      <h4 className="font-serif text-[0.82rem] sm:text-[0.95rem] font-bold leading-tight text-[#142C3D]">
+                        Tailored
+                      </h4>
+                      <p className="mt-0.5 text-[0.68rem] sm:text-xs text-ink-500 leading-tight">
+                        Business Solutions
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
+
+          {/* Right Column: Centers the Image with perfectly equal spacing on its left and right */}
+          <div className="w-full flex-1 flex items-center justify-center px-0 lg:px-8 xl:px-14 2xl:px-20">
+            <motion.div
+              initial={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: reduceMotion ? 0.2 : 0.55, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+              className="relative w-full max-w-[620px] xl:max-w-[700px] 2xl:max-w-[780px]"
+            >
+              {/* Soft decorative ambient glow behind the card */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -inset-3 sm:-inset-5 rounded-[2.5rem] bg-gradient-to-tr from-brand-300/25 via-mint-200/20 to-brand-400/15 blur-2xl -z-10"
+              />
+
+              {/* The Hero Image Card in native 16:9 aspect ratio — 100% visible, uncropped, equal spacing on both sides */}
+              <div className="relative w-full aspect-[16/9] overflow-hidden rounded-2xl sm:rounded-3xl shadow-[0_20px_50px_rgba(20,44,61,0.14)] border border-brand-100/70 bg-white">
+                <Image
+                  src="/images/hero-pqb-team-collaboration.webp"
+                  alt="PQB Solutions team collaborating on accounting, medical billing, and IT solutions"
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 55vw"
+                  className="object-cover object-center"
+                />
+              </div>
+            </motion.div>
+          </div>
         </div>
       </div>
 
