@@ -70,15 +70,15 @@ export function Hero() {
         <div className="absolute top-10 left-10 size-[26rem] rounded-full bg-brand-200/[0.18] blur-3xl" />
       </div>
 
-      {/* Right Column: Financial Accounting Photograph (~52% width on desktop; renders first on mobile) */}
+      {/* Right Column: Medical Billing, Accounting & Technology Solutions Photograph (~52% width on desktop; renders first on mobile) */}
       <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-auto lg:absolute lg:inset-y-0 lg:right-0 lg:h-full lg:w-[50%] xl:w-[52%] overflow-hidden">
         <Image
-          src="/images/hero-calculator-accounting.webp"
-          alt="Financial calculations on smartphone, cash notes, and business analytics documents"
+          src="/images/hero-medical-billing-accounting.webp"
+          alt="Medical billing specialist calculating claims with stethoscope, documents, and connected technology network"
           fill
           priority
           sizes="(max-width: 1024px) 100vw, 52vw"
-          className="object-cover object-[center_45%]"
+          className="object-cover object-[center_40%]"
         />
 
         {/* Mobile vertical gradient transition into the light hero background */}

@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/images/hero-calculator-accounting.webp",
+        url: "/images/hero-medical-billing-accounting.webp",
         width: 1024,
         height: 682,
         alt: `${site.name} — accounting, medical billing and IT solutions`,
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${site.name} | ${site.tagline}`,
     description,
-    images: ["/images/hero-calculator-accounting.webp"],
+    images: ["/images/hero-medical-billing-accounting.webp"],
   },
   robots: {
     index: true,
