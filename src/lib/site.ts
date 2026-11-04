@@ -29,14 +29,14 @@ export const site = {
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "18255220889",
   whatsappDefaultMessage:
     "Hello PQB Solutions! I would like to know more about your services.",
-  address: "39-2803 14 Ave NW, Edmonton, Alberta T6T 2K4",
-  addressLine1: "39-2803 14 Ave NW",
-  addressLine2: "Edmonton, Alberta T6T 2K4",
+  address: "504-2404 16 Ave NW, Edmonton, Alberta T6T 2T5",
+  addressLine1: "504-2404 16 Ave NW",
+  addressLine2: "Edmonton, Alberta T6T 2T5",
   city: "Edmonton",
   province: "Alberta",
-  postalCode: "T6T 2K4",
+  postalCode: "T6T 2T5",
   country: "Canada",
-  mapUrl: "https://maps.google.com/?q=39-2803+14+Ave+NW,+Edmonton,+AB+T6T+2K4",
+  mapUrl: "https://maps.google.com/?q=504-2404+16+Ave+NW,+Edmonton,+AB+T6T+2T5",
 } as const;
 
 export type NavItem = {
